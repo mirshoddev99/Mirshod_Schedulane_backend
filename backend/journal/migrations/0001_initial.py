@@ -17,7 +17,6 @@ class Migration(migrations.Migration):
             "taggit",
             "0006_rename_taggeditem_content_type_object_id_taggit_tagg_content_8fc721_idx",
         ),
-        ("trip", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
@@ -63,15 +62,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("created", models.DateTimeField(auto_now_add=True)),
-                (
-                    "trip",
-                    models.ForeignKey(
-                        blank=True,
-                        null=True,
-                        on_delete=django.db.models.deletion.SET_NULL,
-                        to="trip.trip",
-                    ),
-                ),
+                
                 (
                     "user",
                     models.ForeignKey(
@@ -106,15 +97,7 @@ class Migration(migrations.Migration):
                         verbose_name="Tags",
                     ),
                 ),
-                (
-                    "trip",
-                    models.ForeignKey(
-                        blank=True,
-                        null=True,
-                        on_delete=django.db.models.deletion.SET_NULL,
-                        to="trip.trip",
-                    ),
-                ),
+                
                 (
                     "user",
                     models.ForeignKey(

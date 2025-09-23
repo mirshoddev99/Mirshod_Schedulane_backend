@@ -21,7 +21,7 @@ class TravelJournalViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         # show only my journals
-        return TravelJournal.objects.filter(user=self.request.user).select_related("user", "trip")
+        return TravelJournal.objects.filter(user=self.request.user).select_related("user")
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)  # belt & suspenders
@@ -32,7 +32,8 @@ class TravelJournalViewSet(viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 
     def get_queryset(self):
-        return (TravelJournal.objects.filter(user=self.request.user).select_related("trip", "user").prefetch_related("photos"))
+        return (TravelJournal.objects.filter(user=self.request.user).select_related("user").prefetch_related("photos"))
+
 
 
 class PhotosViewSet(viewsets.ModelViewSet):
@@ -64,11 +65,7 @@ class PhotosViewSet(viewsets.ModelViewSet):
             raise PermissionDenied("You can only modify your own photos.")
         serializer.save()
         
-    def perform_destroy(self, instance):
-        if instance.journal_entry.user_id != self.request.user.id:
-            raise PermissionDenied("You can only delete your own photos.")
-        instance.delete()
-
+    
 
 
 
@@ -80,7 +77,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         # simplest: show only my reviews
-        return Review.objects.filter(user=self.request.user).select_related("user", "trip")
+        return Review.objects.filter(user=self.request.user).select_related("user")
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -100,4 +97,4 @@ class PublicReviewViewSet(mixins.ListModelMixin,
 
     def get_queryset(self):
         return (
-            Review.objects.filter(visibility="public").select_related("user", "trip").order_by("-created"))
+            Review.objects.filter(visibility="public").select_related("user").order_by("-created"))

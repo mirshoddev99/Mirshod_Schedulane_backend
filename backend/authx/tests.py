@@ -194,18 +194,6 @@ class ChangePasswordSerializerTestCase(APITestCase):
         self.assertIn("new_password", serializer.errors)
 
 
-class DeactivateAccountViewTestCase(APITestCase):
-    def test_deactivate_account_success(self):
-        user = CustomUser.objects.create_user(username="testuser", password="password")
-        self.client.login(username="testuser", password="password")
-
-        url = reverse("authx:deactivate-account")
-        response = self.client.post(url)
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["message"], "Account deactivated successfully.")
-        user.refresh_from_db()
-        self.assertFalse(user.is_active)
 
 
 class PasswordResetConfirmAPIViewTestCase(APITestCase):

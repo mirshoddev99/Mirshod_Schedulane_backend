@@ -24,6 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 load_dotenv()
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 
 SECRET_KEY = os.environ.get("SECRET_KEY", "defau1t@#_1n$ecure@#_key1$%")
@@ -39,9 +41,7 @@ INSTALLED_APPS = [
     # Apps
     "demo_app",
     "authx",
-    "locations",
     "journal",
-    "trip",
     # Libraries
     "rest_framework",
     "drf_spectacular",
@@ -154,9 +154,6 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-MEDIA_URL = "/media/"
-
 FRONTEND_RESET_URL = os.getenv(
     "FRONTEND_RESET_URL", "http://localhost:5173/reset-password"
 )
@@ -164,8 +161,6 @@ FRONTEND_RESET_URL = os.getenv(
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        #"rest_framework.authentication.BasicAuthentication",
-        #"rest_framework.authentication.SessionAuthentication",
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": [
@@ -222,7 +217,7 @@ SIMPLE_JWT = {
     "JTI_CLAIM": "jti",
     "SLIDING_TOKEN_REFRESH_EXP_CLAIM": "refresh_exp",
     "SLIDING_TOKEN_LIFETIME": timedelta(minutes=5),
-    "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1),
+    "SLIDING_TOKEN_REFRESH_LIFETIdME": timedelta(days=1),
 }
 
 AUTH_USER_MODEL = "authx.CustomUser"
@@ -273,4 +268,5 @@ CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 load_dotenv(BASE_DIR / ".env")
+
 

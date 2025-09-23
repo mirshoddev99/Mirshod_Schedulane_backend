@@ -14,6 +14,6 @@ class PhotosAdmin(admin.ModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ("trip", "user", "rating", "visibility", "date")
+    list_display = ("user", "rating", "visibility", "date")
 
 

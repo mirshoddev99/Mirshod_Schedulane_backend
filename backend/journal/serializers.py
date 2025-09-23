@@ -6,27 +6,35 @@ from .models import TravelJournal, Photos, Review
 
 
 class TravelJournalSerializer(TaggitSerializer, serializers.ModelSerializer):
-    tags = TagListSerializerField()
+    tags = TagListSerializerField(required=False)
     # automatically sets the User ID
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     photos = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = TravelJournal
-        fields = "__all__"
-        read_only_fields = ["id", "created", "updated"]
+        fields = (
+            "id",
+            "user",       
+            "title",
+            "notes",
+            "tags",
+            "photos",      
+            "created",
+            "updated",
+        )
+        read_only_fields = ("id", "created", "updated")
 
     def get_photos(self, obj):
-        # keep it tiny: just return id + absolute URL
         request = self.context.get("request")
-        items = []
+        urls = []
         for p in obj.photos.all():
-            if p.photo and hasattr(p.photo, "url"):
+            if hasattr(p.photo, "url"):
                 url = p.photo.url
-                if request:
+                if request is not None:
                     url = request.build_absolute_uri(url)
-                items.append({"id": p.id, "url": url})
-        return items
+                urls.append(url)
+        return urls
 
 
 class PhotosSerializer(TaggitSerializer, serializers.ModelSerializer):
@@ -58,21 +66,36 @@ class PhotosSerializer(TaggitSerializer, serializers.ModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
 
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    
     class Meta:
         model = Review
-        fields = "__all__"
-        read_only_fields = ["id", "date", "created", "likes", "dislikes"]
+        fields = (
+            "id",
+            "user",
+            "rating",
+            "comment",
+            "recommended",  
+            "visibility",
+            "date",          
+            "created",      
+        )
+        read_only_fields = ("id", "date", "created")
+
+
+    def to_internal_value(self, data):
+        allowed = set(self.fields.keys())
+        filtered = {k: v for k, v in dict(data).items() if k in allowed}
+        return super().to_internal_value(filtered)
 
 
 class PublicReviewSerializer(serializers.ModelSerializer):
     author = serializers.CharField(source="user.username", read_only=True)
-    trip_name = serializers.CharField(source="trip.name", read_only=True)
     # Robust timestamp that works whether your model uses `created` or `date`
     timestamp = serializers.SerializerMethodField()
 
     class Meta:
         model = Review
-        fields = ["id", "author", "trip", "trip_name", "rating", "comment", "timestamp"]
+        fields = ["id", "author", "rating", "comment", "timestamp"]
 
     def get_timestamp(self, obj):
         return getattr(obj, "created", None) or getattr(obj, "date", None)

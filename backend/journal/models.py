@@ -1,13 +1,12 @@
 from django.db import models
 
-# Create your models here.
+
 from django.utils.text import slugify
 from datetime import date
 from django.db import models
 from taggit.managers import TaggableManager
 
 from authx.models import CustomUser
-from trip.models import Trip
 
 from django.core.validators import MinValueValidator, MaxValueValidator
 
@@ -27,7 +26,7 @@ def get_trip_upload_path(instance, filename):
 
 
 class TravelJournal(models.Model):
-    trip = models.ForeignKey(Trip, on_delete=models.SET_NULL, null=True, blank=True)
+    #trip = models.ForeignKey(Trip, on_delete=models.SET_NULL, null=True, blank=True)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=100, blank=False, verbose_name="Title")
     notes = models.TextField()
@@ -37,8 +36,7 @@ class TravelJournal(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        trip_part = self.trip.name if self.trip_id else "No Trip"
-        return f"Journal '{self.title}' ({trip_part}) by {self.user.username} on {self.created:%Y-%m-%d}"
+        return f"Journal '{self.title}' by {self.user.username} on {self.created:%Y-%m-%d}"
 
 
 class Photos(models.Model):
@@ -56,17 +54,15 @@ class Photos(models.Model):
 
 class Review(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    trip = models.ForeignKey(Trip, on_delete=models.SET_NULL, null=True, blank=True)
     rating = models.PositiveIntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(10)]
     )
     comment = models.TextField()
+
     date = models.DateTimeField(auto_now_add=True)
-    likes = models.PositiveIntegerField(default=0)
-    dislikes = models.PositiveIntegerField(default=0)
+
+
     recommended = models.BooleanField(default=False)
-    pros = models.TextField(blank=True)
-    cons = models.TextField(blank=True)
     visibility = models.CharField(
         max_length=10,
         choices=[("public", "Public"), ("private", "Private"), ("friends", "Shared with Friends")],

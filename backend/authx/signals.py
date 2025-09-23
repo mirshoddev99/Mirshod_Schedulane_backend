@@ -8,7 +8,7 @@ from django.db.models.signals import post_save
 from django_rest_passwordreset.signals import reset_password_token_created
 
 from .utils import CustomTokenGenerator
-from .models import Profile  # import your Profile model
+from .models import Profile  
 
 custom_token_generator = CustomTokenGenerator()
 
