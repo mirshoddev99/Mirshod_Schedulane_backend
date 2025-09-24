@@ -36,9 +36,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "defau1t@#_1n$ecure@#_key1$%")
 DEBUG = True
 
 ALLOWED_HOSTS = [
-                    "schedulane-gga2cwfhgvcnhmhj.koreasouth-01.azurewebsites.net", 
-                     'schedulane.azurewebsites.net',
-                    'www.schedulane.azurewebsites.net',]
+                    "schedulane-gga2cwfhgvcnhmhj.koreasouth-01.azurewebsites.net",]
 
 
 # Application definition
