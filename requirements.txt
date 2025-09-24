@@ -67,6 +67,6 @@ urllib3==2.5.0
 zope.interface==7.2
 psycopg2-binary
 python-decouple
-gunicorn-23.0.0
+gunicorn
 dj-database-url-3.0.1
 whitenoise-6.11.0
