@@ -17,10 +17,13 @@ from datetime import timedelta
 from dotenv import load_dotenv
 
 from decouple import config
+import dj_database_url
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  
+
 
 load_dotenv()
 
@@ -63,6 +66,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -101,17 +105,10 @@ PASSWORD_POSTGRES = os.getenv("PASSWORD_POSTGRES")
 HOST = os.getenv("HOST")
 PORT = os.getenv("PORT")
 
-DATABASES = {
-    'default': {
-        'ENGINE': '',
-        'NAME': "",                               # Replace with your PostgreSQL database name
-        'USER': "",                      # Replace with your PostgreSQL username
-        'PASSWORD': "",              # Replace with your PostgreSQL password
-        'HOST': "",                               # Replace with "localhost"
-        'PORT': "",                               # Default PostgreSQL port ""
-    }
-}
 
+DATABASES = {
+    'default': dj_database_url.config(default=config('DATABASE_URL'))
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

@@ -46,11 +46,6 @@ class PhotosViewSet(viewsets.ModelViewSet):
         # only photos from my journals
         return Photos.objects.filter(journal_entry__user=self.request.user).select_related("journal_entry")
 
-    #def perform_create(self, serializer):
-        #journal = serializer.validated_data.get("journal_entry")
-        #if journal.user_id != self.request.user.id:
-            #raise PermissionDenied("You can only upload photos to your own journals.")
-        #serializer.save()
 
     def perform_create(self, serializer):
         journal = serializer.validated_data.get("journal_entry")
