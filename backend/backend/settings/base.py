@@ -229,6 +229,10 @@ CSRF_COOKIE_SECURE = False
 CSRF_COOKIE_HTTPONLY = False
 CSRF_COOKIE_SAMESITE = "None"
 
+CORS_ALLOWED_ORIGINS = [
+    "https://brave-sky-0752b1e00.2.azurestaticapps.net"
+]
+
 CORS_ALLOW_METHODS = [
     "DELETE",
     "GET",
