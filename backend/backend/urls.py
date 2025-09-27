@@ -28,7 +28,7 @@ from drf_spectacular.views import (
 
 
 urlpatterns = [
-    path("", include("demo_app.urls")),
+    # path("", include("demo_app.urls")),
     # Django
     path("admin/", admin.site.urls),
     path("api/", include("rest_framework.urls", namespace="rest_framework")),
