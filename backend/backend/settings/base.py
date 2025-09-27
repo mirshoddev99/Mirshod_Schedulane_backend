@@ -33,10 +33,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 SECRET_KEY = os.environ.get("SECRET_KEY", "defau1t@#_1n$ecure@#_key1$%")
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
-                    "schedulane-gga2cwfhgvcnhmhj.koreasouth-01.azurewebsites.net", "*"]
+                    "schedulane-gga2cwfhgvcnhmhj.koreasouth-01.azurewebsites.net",]
 
 
 # Application definition
@@ -146,6 +146,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

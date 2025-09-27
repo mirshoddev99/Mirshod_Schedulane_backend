@@ -93,3 +93,6 @@ class PublicReviewViewSet(mixins.ListModelMixin,
     def get_queryset(self):
         return (
             Review.objects.filter(visibility="public").select_related("user").order_by("-created"))
+    
+
+
