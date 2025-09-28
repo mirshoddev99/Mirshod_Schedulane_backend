@@ -36,7 +36,8 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "defau1t@#_1n$ecure@#_key1$%")
 DEBUG = False
 
 ALLOWED_HOSTS = [
-                    "schedulane-gga2cwfhgvcnhmhj.koreasouth-01.azurewebsites.net",]
+                    "schedulane-gga2cwfhgvcnhmhj.koreasouth-01.azurewebsites.net",   "localhost",
+    "127.0.0.1",]
 
 
 # Application definition
@@ -105,6 +106,20 @@ USER_POSTGRES = os.getenv("USER_POSTGRES")
 PASSWORD_POSTGRES = os.getenv("PASSWORD_POSTGRES")
 HOST = os.getenv("HOST")
 PORT = os.getenv("PORT")
+
+
+# settings.py
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': NAME,
+#         'USER': USER_POSTGRES,
+#         'PASSWORD': "test123",
+#         'HOST': HOST,  # Or your DB host's IP address/URL
+#         'PORT': PORT,       # Default port for PostgreSQL
+#     }
+# }
 
 
 DATABASES = {
