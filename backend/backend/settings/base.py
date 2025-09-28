@@ -34,7 +34,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
                     "schedulane-gga2cwfhgvcnhmhj.koreasouth-01.azurewebsites.net",   "localhost",
@@ -111,21 +111,21 @@ PORT = os.getenv("PORT")
 
 # settings.py
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': NAME,
-#         'USER': USER_POSTGRES,
-#         'PASSWORD': "test123",
-#         'HOST': HOST,  # Or your DB host's IP address/URL
-#         'PORT': PORT,       # Default port for PostgreSQL
-#     }
-# }
-
-
 DATABASES = {
-    'default': dj_database_url.config(default=config('DATABASE_URL'))
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': NAME,
+        'USER': USER_POSTGRES,
+        'PASSWORD': PASSWORD_POSTGRES,
+        'HOST': HOST,  # Or your DB host's IP address/URL
+        'PORT': PORT,       # Default port for PostgreSQL
+    }
 }
+
+
+# DATABASES = {
+#     'default': dj_database_url.config(default=config('DATABASE_URL'))
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -248,6 +248,8 @@ CSRF_COOKIE_SAMESITE = "None"
 CORS_ALLOWED_ORIGINS = [
     "https://brave-sky-0752b1e00.2.azurestaticapps.net"
 ]
+
+CSRF_TRUSTED_ORIGINS = ["https://schedulane-gga2cwfhgvcnhmhj.koreasouth-01.azurewebsites.net"]
 
 CORS_ALLOW_METHODS = [
     "DELETE",
