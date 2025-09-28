@@ -31,7 +31,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 
-SECRET_KEY = os.environ.get("SECRET_KEY", "defau1t@#_1n$ecure@#_key1$%")
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
 
 DEBUG = False
 
