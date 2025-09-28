@@ -111,21 +111,21 @@ PORT = os.getenv("PORT")
 
 # settings.py
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': NAME,
-        'USER': USER_POSTGRES,
-        'PASSWORD': PASSWORD_POSTGRES,
-        'HOST': HOST,  # Or your DB host's IP address/URL
-        'PORT': PORT,       # Default port for PostgreSQL
-    }
-}
-
-
 # DATABASES = {
-#     'default': dj_database_url.config(default=config('DATABASE_URL'))
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': NAME,
+#         'USER': USER_POSTGRES,
+#         'PASSWORD': PASSWORD_POSTGRES,
+#         'HOST': HOST,  # Or your DB host's IP address/URL
+#         'PORT': PORT,       # Default port for PostgreSQL
+#     }
 # }
+
+
+DATABASES = {
+    'default': dj_database_url.config(default=config('DATABASE_URL'))
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
