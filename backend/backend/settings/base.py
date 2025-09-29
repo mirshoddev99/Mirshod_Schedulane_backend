@@ -31,6 +31,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 
+
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 
@@ -251,7 +252,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://brave-sky-0752b1e00.2.azurestaticapps.net"
 ]
 
-CSRF_TRUSTED_ORIGINS = ["https://schedulane-gga2cwfhgvcnhmhj.koreasouth-01.azurewebsites.net"]
+CSRF_TRUSTED_ORIGINS = ["https://schedulane-gga2cwfhgvcnhmhj.koreasouth-01.azurewebsites.net", "https://brave-sky-0752b1e00.2.azurestaticapps.net"]
 
 CORS_ALLOW_METHODS = [
     "DELETE",
@@ -302,3 +303,18 @@ EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True") == "True"
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER or "no-reply@example.com")
+
+
+
+
+# Deployment settings
+INSTALLED_APPS += ['storages']
+
+DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+
+AZURE_ACCOUNT_NAME = 'schedulanestorage'
+AZURE_ACCOUNT_KEY = 'MZRLXof6EYSXBXvg166CzUrbNqmuvI+Db2eTsjBSXHEs6Hpu8BKK84tZA2V8VEtLHKnffO9SWH9k+AStNW8U7A=='
+AZURE_CONTAINER = 'media'
+
+# Optional: set MEDIA_URL
+# MEDIA_URL = f'https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/{AZURE_CONTAINER}/'
