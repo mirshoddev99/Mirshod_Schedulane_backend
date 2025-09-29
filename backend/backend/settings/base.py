@@ -308,12 +308,21 @@ DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER or "no-repl
 
 
 # Deployment settings
+
+AZURE_ACCOUNT_KEY = os.environ.get('AZURE_ACCOUNT_KEY')
+# AZURE_URL = f'https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/'
+
+# MEDIA_URL = AZURE_URL + AZURE_CONTAINER + '/'
+
+
+
+
 INSTALLED_APPS += ['storages']
 
 DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
 
 AZURE_ACCOUNT_NAME = 'schedulanestorage'
-AZURE_ACCOUNT_KEY = 'MZRLXof6EYSXBXvg166CzUrbNqmuvI+Db2eTsjBSXHEs6Hpu8BKK84tZA2V8VEtLHKnffO9SWH9k+AStNW8U7A=='
+AZURE_ACCOUNT_KEY = AZURE_ACCOUNT_KEY
 AZURE_CONTAINER = 'media'
 
 # Optional: set MEDIA_URL
