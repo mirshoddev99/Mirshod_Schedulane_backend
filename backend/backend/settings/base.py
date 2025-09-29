@@ -35,7 +35,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
                     "schedulane-gga2cwfhgvcnhmhj.koreasouth-01.azurewebsites.net",   "localhost",
@@ -309,21 +309,20 @@ DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER or "no-repl
 
 # Deployment settings
 
-AZURE_ACCOUNT_KEY = os.environ.get('AZURE_ACCOUNT_KEY')
 # AZURE_URL = f'https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/'
 
 # MEDIA_URL = AZURE_URL + AZURE_CONTAINER + '/'
 
 
-
+AZURE_ACCOUNT_KEY = os.environ.get('AZURE_ACCOUNT_KEY')
 
 INSTALLED_APPS += ['storages']
-
-DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
-
 AZURE_ACCOUNT_NAME = 'schedulanestorage'
 AZURE_ACCOUNT_KEY = AZURE_ACCOUNT_KEY
 AZURE_CONTAINER = 'media'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+
 
 # Optional: set MEDIA_URL
 # MEDIA_URL = f'https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/{AZURE_CONTAINER}/'
