@@ -18,6 +18,7 @@ from dotenv import load_dotenv
 
 from decouple import config
 import dj_database_url
+from storages.backends.azure_storage import AzureStorage
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -316,26 +317,54 @@ DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER or "no-repl
 
 # AZURE_ACCOUNT_KEY = os.environ.get('AZURE_ACCOUNT_KEY')
 
-# INSTALLED_APPS += ['storages']
-# AZURE_ACCOUNT_NAME = 'schedulanestorage'
-# AZURE_ACCOUNT_KEY = os.environ.get('AZURE_ACCOUNT_KEY')
-# AZURE_CONTAINER = 'media'
-# MEDIA_URL = f'https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/{AZURE_CONTAINER}/'
-# AZURE_SSL = True
-
 
 # DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
 
 
 
-from storages.backends.azure_storage import AzureStorage
+# from storages.backends.azure_storage import AzureStorage
 
-class AzureMediaStorage(AzureStorage):
-    account_name = "schedulanestorage"  # Must be replaced by your storage account name
-    account_key = os.environ.get("AZURE_ACCOUNT_KEY")  # Securely set in environment
-    azure_container = "media"
-    expiration_secs = None
+# class AzureMediaStorage(AzureStorage):
+#     account_name = "schedulanestorage"  # Must be replaced by your storage account name
+#     account_key = os.environ.get("AZURE_ACCOUNT_KEY")  # Securely set in environment
+#     azure_container = "media"
+#     expiration_secs = None
 
 
-DEFAULT_FILE_STORAGE = 'settings.storage_backends.AzureMediaStorage'
-MEDIA_URL = f"https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/{AZURE_CONTAINER}/"
+# DEFAULT_FILE_STORAGE = 'settings.storage_backends.AzureMediaStorage'
+# MEDIA_URL = f"https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/{AZURE_CONTAINER}/"
+
+
+
+# Default media settings
+
+
+# ... all your other settings ...
+
+# Azure Blob Storage Configuration (minimal)
+INSTALLED_APPS += ['storages']
+AZURE_ACCOUNT_NAME = 'schedulanestorage'
+AZURE_ACCOUNT_KEY = os.environ.get('AZURE_ACCOUNT_KEY')
+AZURE_CONTAINER = 'media'
+AZURE_SSL = True
+
+    
+# Configure Azure Storage
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.azure_storage.AzureStorage",
+        "OPTIONS": {
+            "account_name": AZURE_ACCOUNT_NAME,
+            "account_key": AZURE_ACCOUNT_KEY,
+            "azure_container": AZURE_CONTAINER,
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
+# Update MEDIA_URL for Azure
+MEDIA_URL = f'https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/{AZURE_CONTAINER}/'
+
+
