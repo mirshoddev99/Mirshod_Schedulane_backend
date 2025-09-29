@@ -109,4 +109,5 @@ urllib3==2.5.0
 wcwidth==0.2.13
 whitenoise==6.11.0
 zope.interface==7.2
-django-storages azure-storage-blob
+django-storages
+azure-storage-blob

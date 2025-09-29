@@ -1,6 +1,7 @@
 # Virtual environment and VSC files
 venv
 .vscode
+prodcution_env
 
 # Environmental variables
 .env
